@@ -13,6 +13,6 @@ int main(void)
     putc(userInput, fp);
     printf("\n");
 
-	getchar();
+    fclose(fp);
 	return 0;
 }
