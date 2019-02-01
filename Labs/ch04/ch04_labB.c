@@ -1,7 +1,7 @@
 /*
     Programmer: Grant Ogden
     Date: 2/1/2019
-    Filename: ch04_labA.c
+    Filename: ch04_labB.c
     Reason: To practice implentation of getc() and putc()
 */
 #include <stdio.h>
