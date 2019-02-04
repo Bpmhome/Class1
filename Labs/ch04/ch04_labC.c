@@ -12,8 +12,8 @@ int main()
     printf("Enter a string 9 characters long: ");
     fgets(inputString,sizeof(inputString),stdin);
     printf("Your string is.....\n");
-    inputString[9] = '\0';
     fputs(inputString,stdout);
+    printf("\n");
 
     return 0;
 }
