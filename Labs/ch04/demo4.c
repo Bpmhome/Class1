@@ -9,8 +9,7 @@ int main()
     printf("Please input the date in mm-dd-yyyy format: ");
     scanf("%2d-%2d-%4d",&month,&day,&year);
     printf("The date is:\n");
-    printf("%2d/%2d/%4d \n", month, day, year);
-    printf("%d",year);
+    printf("%2.2d/%2.2d/%4.4d \n", month, day, year);
 
     return 0;
 }
