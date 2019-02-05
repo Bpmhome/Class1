@@ -8,11 +8,11 @@ const int NUM_CARDS = 13;
 
 unsigned int randNum(void)
 {
-    srand(time(NULL));
+    srand(time(NULL) * rand());
     unsigned int x = (RAND_MAX + 1u)/NUM_CARDS;
     unsigned int y = x * NUM_CARDS;
     unsigned int r;
-
+    
     do
     {
         r = rand();
@@ -54,7 +54,7 @@ char getCard(void)
             return '9';
             break;
         case 10:
-            return '0';
+            return 'X';
             break;
         case 11:
             return 'J';

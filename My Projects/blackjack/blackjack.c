@@ -1,32 +1,38 @@
+
+#define bool int
+#define true 1
+#define false 0
+
 #include <stdio.h>
 #include "cardEngine.h"
-#include <unistd.h> //use for sleep function in testing
-//#include <time.h> //use for nanosleep function
+#include "graphics.h"
 
-void gameIntro();
-
-
-//struct timespec tim, tim2; //struct required for nanosleep
+void drawHand(char *dealerHand, char *playerHand);
 
 int main()
 {
+    bool lose = false;
+    int count = 0;
+    char dealerHand[2] = {0};
+    char playerHand[2] = {0};
+
     gameIntro();
+    do
+    {
+        printf("%c %c\n",dealerHand[0],dealerHand[1]);
+        drawHand(dealerHand,playerHand);
+        printGameScreen(0,dealerHand[0],dealerHand[1],playerHand[0],playerHand[1]);
+        count++;
+
+    } while (lose == false || count <= 5);
+    
     return 0;
 }
 
-void gameIntro()
+void drawHand(char *dealerHand, char *playerHand)
 {
-    printf(" ||===\\  ||     ||===|| ||=== ||  / ====== ||===|| ||=== ||  / \n");
-    printf( " ||    | ||     ||   || ||    || /     ||  ||   || ||    || /  \n");
-    printf( " ||===[  ||     ||===|| ||    ||{      ||  ||===|| ||    ||{   \n");
-    printf( " ||    | ||     ||   || ||    || \\     ||  ||   || ||    || \\ \n");
-    printf( " ||===/  ||==== ||   || ||=== ||  \\ ===||  ||   || ||=== ||  \\ \n");
-    sleep(2);
-    printf("\n\n");
-    printf("\t\t\tCreated By\n");
-    printf("\t\t\t\tGrant Ogden\n");
-    sleep(2);
-    printf("\n\n");
-    printf("\t\t   Because Why The Hell Not!\n");
-    sleep(5);
+    dealerHand[0] = getCard();
+    dealerHand[1] = getCard();
+    playerHand[0] = getCard();
+    playerHand[1] = getCard();
 }
