@@ -24,7 +24,7 @@ int main()
         printGameScreen(0,dealerHand[0],dealerHand[1],playerHand[0],playerHand[1]);
         count++;
 
-    } while (lose == false || count <= 5);
+    } while (lose == false && count <= 5);
     
     return 0;
 }
