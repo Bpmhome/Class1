@@ -23,7 +23,7 @@ int main()
     do
     {
         drawHand(dealerHand,playerHand);
-        printGameScreen(0,dealerHand[0],dealerHand[1],playerHand[0],playerHand[1]);
+        printGameScreen(score,dealerHand[0],dealerHand[1],playerHand[0],playerHand[1]);
         dealerValue = handValue(dealerHand[0],dealerHand[1]);
         playerValue = handValue(playerHand[0],playerHand[1]);        
         printf("%d\n", dealerValue);
