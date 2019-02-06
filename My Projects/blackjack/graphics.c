@@ -1,6 +1,7 @@
 #include "graphics.h"
 #include <stdio.h>
 #include <stdlib.h> //use for system command
+#include <termios.h>
 #include <unistd.h> //use for sleep function in testing
 
 void gameIntro()
@@ -26,8 +27,8 @@ void gameIntro()
 void printGameScreen(int score, char dealerCard1, char dealerCard2, char userCard1, char userCard2 )
 {
     printf("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
-    printf("X S:%1.1d                                     X\n",score, dealerCard1, dealerCard2);
-    printf("X              D: %c %c                     X\n");
+    printf("X S:%1.1d                                     X\n",score);
+    printf("X              D: %c %c                     X\n",dealerCard1,dealerCard2);
     printf("X                                         X\n");
     printf("X                                         X\n");
     printf("X                                         X\n");
@@ -41,9 +42,7 @@ void printGameScreen(int score, char dealerCard1, char dealerCard2, char userCar
 
 void wait()
 { 
-    char doesntMatter = 0;
-    fflush(stdin);
     printf("\nPress The Enter Key To Continue......\n");
-    scanf("%^[\n\0\t]c",doesntMatter);
+    getchar();
 }
 

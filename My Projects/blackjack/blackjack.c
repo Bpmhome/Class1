@@ -13,15 +13,33 @@ int main()
 {
     bool lose = false;
     int count = 0;
+    int score = 0;
     char dealerHand[2] = {0};
     char playerHand[2] = {0};
+    int playerValue = 0;
+    int dealerValue = 0;
 
     gameIntro();
     do
     {
-        printf("%c %c\n",dealerHand[0],dealerHand[1]);
         drawHand(dealerHand,playerHand);
         printGameScreen(0,dealerHand[0],dealerHand[1],playerHand[0],playerHand[1]);
+        dealerValue = handValue(dealerHand[0],dealerHand[1]);
+        playerValue = handValue(playerHand[0],playerHand[1]);        
+        printf("%d\n", dealerValue);
+        printf("%d\n", playerValue);
+        if(playerValue > dealerValue)
+        {
+            printf("Player Wins!\n");
+            score++;
+        }
+        else
+        {
+            printf("Dealer Wins :(\n");
+        }
+        
+
+
         count++;
 
     } while (lose == false && count <= 5);
