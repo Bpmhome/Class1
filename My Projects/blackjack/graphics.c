@@ -24,7 +24,7 @@ void gameIntro()
     system("cls||clear");
 }
 
-void printGameScreen(int score, char dealerCard1, char dealerCard2, char userCard1, char userCard2 )
+char printGameScreen(int score, char dealerCard1, char dealerCard2, char userCard1, char userCard2 )
 {
     printf("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
     printf("X S:%1.1d                                     X\n",score);
@@ -36,8 +36,9 @@ void printGameScreen(int score, char dealerCard1, char dealerCard2, char userCar
     printf("X                                         X\n");
     printf("X              P: %c %c                     X\n",userCard1,userCard2);
     printf("X                                         X\n");
+    printf("X h: hit  s: stand  d: double down        X\n");
     printf("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
-    wait();
+    return getchar();
 }
 
 void wait()

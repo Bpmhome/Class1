@@ -38,8 +38,6 @@ int main()
             printf("Dealer Wins :(\n");
         }
         
-
-
         count++;
 
     } while (lose == false && count <= 5);
