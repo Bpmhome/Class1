@@ -22,14 +22,14 @@ int main()
             myArry[counter] = userChar;
             counter++;
         }
-    } while (userChar == '\n');
+    } while (userChar != '\n');
     
     for(int i = 0; i < counter; i++)
     {
         putchar(myArry[i]);
     }
     
-
+    printf("\n");
 
     return 0;
 }
