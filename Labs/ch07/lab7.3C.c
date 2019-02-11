@@ -16,6 +16,7 @@ int main()
     //My counter to know how many characters have been put into the array
     int counter = 0;
 
+    printf("Please input a string\n");
     //do while the input is not a new line
     do
     {
@@ -28,7 +29,7 @@ int main()
             myArry[counter] = userChar;
             counter++;
         }
-    } while (userChar != '\n');
+    } while (userChar != '\n'&& counter < 25);
     
     //for every letter input, output to screen
     for(int i = 0; i < counter; i++)
