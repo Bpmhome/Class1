@@ -28,7 +28,7 @@ int main(void)
 
 
     // TODO: Create your program output, user instructions, user input etc
-
+    
 
     // TODO: Implement replace_char function call here
 
@@ -60,6 +60,8 @@ int main(void)
 int replace_character(char * string, const char findThisChar,const char replaceItWithThis)
 {
     int counter = 0;
+    int numberOfChanges = 0;
+
     if(string == NULL)
     {
         return ERR_NULL_POINTER;
@@ -68,17 +70,32 @@ int replace_character(char * string, const char findThisChar,const char replaceI
     {
         return ERR_FIND_EQUALS_REPLACE;
     }
-    else if(
-        
-    )
+    else if((findThisChar >= 32 && findThisChar <= 126) || (replaceItWithThis >= 32 && replaceItWithThis <= 126))
+    {
+        return ERR_NON_PRINTABLE_CHARACTER;
+    }
+    else
+    {
+        for(int i = 0; i < sizeof(string); i++)
+        {
+            if(string[i] == '\0')
+            {
+                break;
+            }
+        }
+        return ERR_NONE_FOUND;
+    }
+
     while(string[counter] != '\0')
     {
         if(string[counter] == findThisChar)
         {
             string[counter] = replaceItWithThis;
+            numberOfChanges++;
         }
         counter++;
     }
+    return numberOfChanges;
 }
 
 
