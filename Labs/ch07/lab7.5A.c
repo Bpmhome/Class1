@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <ctype.h>
 
+void clearInput();
+
 int main()
 {
     //variable for character input
@@ -15,9 +17,6 @@ int main()
     //repeat until we get the users input
     do
     {
-        //flush the stream
-        fflush(stdin);
-
         //get the users input
         printf("Please enter whether you want odds or evens by typing it: \n");
         userInput = getc(stdin);
@@ -30,6 +29,7 @@ int main()
         {
             continue;
         }
+        clearInput();
     } while (userInput != 69 && userInput != 79);
 
     //if the userinput is an E than evens else odd
@@ -68,4 +68,9 @@ int main()
     }
     
     return 0;
+}
+
+void clearInput()
+{
+    while(getchar() != '\n');
 }
