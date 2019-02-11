@@ -2,6 +2,8 @@
 Markdown Cheatsheet
 Adam Pritchard edited this page on May 29, 2017 · 96 revisions
 
+LINK: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
 This is intended as a quick reference and showcase. For more complete info, see John Gruber's original spec and the Github-flavored Markdown info page.
 
 Note that there is also a Cheatsheet specific to Markdown Here if that's what you're looking for. You can also check out more Markdown tools.
