@@ -70,9 +70,5 @@ int main()
     {
         printf("%c",quote[i]);
     }
-    
-    return 0;
-    
-
     return 0;
 }
