@@ -1,0 +1,1 @@
+This is resources to help with random projects.
