@@ -22,12 +22,12 @@ int main()
         }
         for(int i = 1; i <= 999; i++)
         {
-            if((x%i) == 0 && count < 10)
+            if((x%i) == 0 && count < 20)
             {
                 printf("%d ",i);
                 count ++;
             }
-            else if(count >= 10)
+            else if(count >= 20)
             {
                 break;
             }
