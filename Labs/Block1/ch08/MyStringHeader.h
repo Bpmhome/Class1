@@ -26,5 +26,21 @@
  *                 to the student to determine the method.
  */
 extern int print_the_count(char * inputString, int strLen);
+/*
+ * FUNCTION:    int reverse_it(char * forwardString, int strLen)
+ * 
+ * ARGUEMENTS:  forwardString is a pointer to a character array (see: string) and is *NOT* 
+ *                 guaranteed to be NULL terminated.  This is why the length of the 
+ *                 string is also passed as an argument.
+ *              strLen is the length of the inputString.  strLen is required as a safety
+ *                 measure since inputString is not guaranteed to be null-terminated.
+ *                 strLen does not need to be long enough to include any null character,
+ *                 even if there was one.
+ * 
+ * RETURNS:    
+ * 
+ * NOTES:       
+ * 
+ */
 extern int reverse_it(char * forwardString, int strLen);
 #endif

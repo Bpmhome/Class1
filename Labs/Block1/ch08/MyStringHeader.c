@@ -41,11 +41,28 @@ extern int print_the_count(char * inputString, int strLen)
 
 extern int reverse_it(char * forwardString, int strLen)
 {
-    char tempString[strLen] = {forwardString};
-    
-    for(int i = strLen; i > 0; i--)
+    if (!forwardString)
     {
-        /* code */
+        return ERR_NULL_POINTER;
     }
+    else if (strLen <= 0)
+    {
+        return ERR_INVALID_LENGTH;
+    }
+    char tempString[255] = {0};
+    int count = 0;
     
+    for (int i = 0; forwardString[i] != '\0'; i++)
+    {
+        tempString[i] = forwardString[i];
+        count++;
+    }
+
+    int x = 0;
+    for(int i = (count - 1); i >= 0; i--)
+    {
+        forwardString[x] = tempString[i];
+        x++;
+    }
+    return 0;
 }

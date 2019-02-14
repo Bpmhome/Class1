@@ -7,8 +7,13 @@
 
 int main()
 {
-    char userInput[256] = {0};
+    char userInput[100] = {0};
     char * userInputPoint[] = {userInput};
 
-    reverse_it( * userInputPoint, strlen(userInput));
+    fprintf(stdout,"Please input a string to have it reversed: \n");
+    fscanf(stdin,"%255[^\n]c",userInput);
+
+    reverse_it(userInput, strlen(userInput));
+    
+    fprintf(stdout,"%s \n",userInput);
 }
