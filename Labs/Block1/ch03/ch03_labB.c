@@ -8,6 +8,7 @@
 
 int main()
 {
+    //array decleration and initialization
     char charStringArr[256] = {0};
     charStringArr[0] = 'c';
     charStringArr[1] = 'a';
@@ -21,6 +22,7 @@ int main()
     charStringArr[9] = 'm';
     charStringArr[10] = '\0';
 
+    //test by printing it as a string
     printf("%s\n",charStringArr);
 
     return 0;

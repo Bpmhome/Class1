@@ -41,23 +41,26 @@ extern int print_the_count(char * inputString, int strLen)
 
 extern int reverse_it(char * forwardString, int strLen)
 {
-    if (!forwardString)
+    if (!forwardString)         //if the string is null then return ERR_NULL_POINTER
     {
         return ERR_NULL_POINTER;
     }
-    else if (strLen <= 0)
+    else if (strLen <= 0)       //if the string length is zero then return ERR_INVALID_LENGTH
     {
         return ERR_INVALID_LENGTH;
     }
-    char tempString[255] = {0};
-    int count = 0;
+    char tempString[255] = {0}; //temp array dec
+    int count = 0;              //count how many letters
     
+
+    //write value into temp array
     for (int i = 0; forwardString[i] != '\0'; i++)
     {
         tempString[i] = forwardString[i];
         count++;
     }
 
+    //write value backwards back into original string
     int x = 0;
     for(int i = (count - 1); i >= 0; i--)
     {

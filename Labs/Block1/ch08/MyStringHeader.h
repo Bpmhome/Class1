@@ -37,7 +37,9 @@ extern int print_the_count(char * inputString, int strLen);
  *                 strLen does not need to be long enough to include any null character,
  *                 even if there was one.
  * 
- * RETURNS:    
+ * RETURNS:     The 0 upon succesful completion
+ *              ERR_NULL_POINTER is inputString is NULL
+ *              ERR_INVALID_LENGTH is strLen is unreasonable (zero or less)
  * 
  * NOTES:       
  * 

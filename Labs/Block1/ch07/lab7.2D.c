@@ -23,7 +23,7 @@ int main()
     //a switch case that does certain cases based off what the operator equals
     switch (operator)
     {
-        //case its a cat buthole then multiply
+        //case its a asterick then multiply
         case '*':
             printf("%d\n",(userInput1 * userInput2));
             break;
@@ -48,9 +48,7 @@ int main()
             printf("%d\n",(userInput1 - userInput2));
             break;
 
-        //if we end up here then the stupid user didn't obey instructions
-        //so don't give them the satisfaction of breaking the our program
-        //just tell them error and let them wallow in their own filth 
+        //tell user error on their part
         default:
             printf("ERROR\n");
             break;

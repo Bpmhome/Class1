@@ -14,34 +14,34 @@ int y = 3;
 int main()
 {
 
-    x *= y;
+    x *= y;                 //x = x * y
     printf("#1 %d\n", x);
     reset();
-    x /= y;
+    x /= y;                 //x = x / y
     printf("#2 %d\n", x);
     reset();
-    x %= y;
+    x %= y;                 //x = x % y
     printf("#3 %d\n", x);
     reset();
-    x += y;
+    x += y;                 //x = x + y
     printf("#4 %d\n", x);
     reset();
-    x -= y;
+    x -= y;                 //x = x - y
     printf("#5 %d\n", x);
     reset();
-    x *= ++y;
+    x *= ++y;               //x = x * (y + 1)
     printf("#6 %d\n", x);
     reset();
-    x /= y++;
+    x /= y++;               //x = x * y, y + 1
     printf("#7 %d\n", x);
     reset();
-    x %= --x;
+    x %= --x;               //x = x % (x - 1)
     printf("#8 %d\n", x);
     reset();
-    x += --y;
+    x += --y;               //x = x + (y - 1)
     printf("#9 %d\n", x);
     reset();
-    x -= y++;
+    x -= y++;               //x = x - y, y++
     printf("#10 %d\n", x);
     reset();
     
@@ -50,6 +50,13 @@ int main()
     return 0;
 }
 
+/*
+ * FUNCTION:    Resets the variables values
+ * ARGUEMENTS:  None
+ * RETURN:      VOID
+ * NOTES:       Sets x value = 9
+ *              Sets y value = 3
+ */
 void reset()
 {
     x = 9;
