@@ -9,7 +9,7 @@
 #define ERROR_VALUE (105)
 
 #define MANUAL_TEST
-#define AUTO_TEST
+//#define AUTO_TEST
 
 
 //Prototype of our shadow sequence number generator
@@ -20,6 +20,7 @@ int main()
     //Decleration of Stadard Variables
     int userInput = 0;                  //The Variable used to hold the user's input
     unsigned long shadowNumber = 0;	    //The variable used to hold the return from shadow_sequence_number
+    int tempValue = 0;
 
     //the original individual testing for shadow_sequence_number
     /*
@@ -36,7 +37,7 @@ int main()
 	tempValue = 0;
 
 	printf("How many numbers would you like to calculate?\n");
-	clean_stdin();
+
 	scanf("%d", &userInput);
 	putchar(10);
 
