@@ -11,19 +11,16 @@ void clear_input();
 
 int main()
 {
-    char filePath[MAX_FILE_PATH_LENGTH] = {0};
-    char fileName[MAX_FILE_NAME_LENGTH] = {0};
-    int error = 0;
+    char filePath[MAX_FILE_PATH_LENGTH] = {0};  //Holds the user's file path
+    char fileName[MAX_FILE_NAME_LENGTH] = {0};  //Holds the user's file name
 
-    printf("Please enter file path:\n");
-    fscanf(stdin,"%260[^\n]c",filePath);
-    clear_input();
-    printf("Please enter file name:\n");
-    fscanf(stdin,"%50[^\n]c",fileName);
+    printf("Please enter file path:\n");        //Ask the user for their file path
+    fscanf(stdin,"%260[^\n]c",filePath);        //Get the user file path
+    clear_input();                              //Clear User input
+    printf("Please enter file name:\n");        //Ask the user for their file name
+    fscanf(stdin,"%50[^\n]c",fileName);         //Get the user file name
 
-    error = open_file(filePath,fileName);
-    create_project(filePath,fileName);
-    printf("%d",error);
+    create_project(filePath,fileName);          //Create the project
     return 0;
 }
 
