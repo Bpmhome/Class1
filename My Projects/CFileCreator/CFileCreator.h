@@ -38,7 +38,20 @@ extern int write_h_files();
  *              'h' opens <fileName>.h
  *              'c' opens <fileName>.c
  */
-extern int open_file(char fileType);
+extern int open_write_file(char fileType);
+
+/*
+ * FUNCTION:    Opens the file pointer so that the files can be written
+ *                  into.
+ * ARGUEMENTS:  char fileType: Takes a char specifier telling it which file
+ *                  to open.
+ * RETURN:      0 on success.
+ *              ERR_FILE_IO (-2) if the file wasn't properly opened.
+ * NOTES:       'm' opens DefaultMain.tmp
+ *              'h' opens DefaultHeaderH.tmp
+ *              'c' opens DefaultHeaderC.tmp
+ */
+extern int open_read_file(char fileType);
 
 /*
  * FUNCTION:    The main function of CFileCreator.c. It creates the

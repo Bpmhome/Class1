@@ -4,6 +4,13 @@
     Project: C File Creator
     Reason: To be lazy and have a program create my files for me
 */
+
+/*
+    Programmer: Grant Ogden
+    Date: 2/19/2019
+    Update: Now reads from template for user to change file templates
+*/
+
 #include <stdio.h>                                  //included for file input
 #include <string.h>                                 //included for strlen function
 #include <ctype.h>                                  //included for toupper function
@@ -22,24 +29,87 @@
 
 char globalFilePath[310] = {0};                     //Holds the file path
 char globalFileName[50] = {0};                      //Holds the file name
-FILE *fp;                                           //File Pointer used to open and create files
+FILE *outputFilePointer;                            //File Pointer used to open and create files
+FILE *inputFilePointer;                             //File Pointer used to open and read files
+
+
+extern int open_read_file(char fileType)
+{
+    switch (fileType)                               //based on the passed fileType create that file and open it for writing
+    {
+        case 'm':                                   //case 'm' find and open the DefaultMainC file
+            inputFilePointer = fopen("./Templates/DefaultMainC.tmp","r");
+            break;
+        case 'h':                                   //case 'h' find and open the DefaultHeaderH file
+            inputFilePointer = fopen("./Templates/DefaultHeaderH.tmp","r");
+            break;
+        case 'c':                                   //case 'c' create and open the DefaultHeaderC file
+            inputFilePointer = fopen("./Templates/DefaultHeaderC","w");
+            break;
+        default:                                    //default print error
+            printf("File open error");
+            break;
+    }
+    if(inputFilePointer == NULL)                   //if the file didn't open correctly
+    {
+        return ERR_FILE_IO;                         //return ERR_FILE_IO
+    }
+
+    return 0;
+}
 
 extern int write_main_c_file()
 {
     time_t now = time(NULL);                        //set the time to now
     struct tm tm = *localtime(&now);                //assign that time to the struct
+    char writingChar = 0;
     
     //print the basic file layout into the file
-    fprintf(fp,"/*\n\tProgrammer: Grant Ogden\n\tDate: %d-%d-%d\n\tProject:%s\n\tReason:\n*/\n",tm.tm_mon + 1,tm.tm_mday,tm.tm_year + 1900,globalFilePath);
-    fprintf(fp,"#include <stdio.h>\n\nint main()\n{\n\t//Variable Decleration\n\n");
-    fprintf(fp,"\t//Functions called here\n\n\treturn 0;\n}");
-
-    fclose(fp);                                     //close the file
+    //fprintf(outputFilePointer,"/*\n\tProgrammer: Grant Ogden\n\tDate: %d-%d-%d\n\tProject:%s\n\tReason:\n*/\n",tm.tm_mon + 1,tm.tm_mday,tm.tm_year + 1900,globalFilePath);
+    //fprintf(outputFilePointer,"#include <stdio.h>\n\nint main()\n{\n\t//Variable Decleration\n\n");
+    //fprintf(outputFilePointer,"\t//Functions called here\n\n\treturn 0;\n}");
+    while(writingChar != EOF){
+        static int count = 0;
+        writingChar = getc(inputFilePointer);
+        if(writingChar == '%')
+        {
+            writingChar = getc(inputFilePointer);
+            if(writingChar == 'd')
+            {
+                if(count == 0)
+                {
+                    fprintf(outputFilePointer,"%d",tm.tm_mon + 1);
+                }
+                else if(count == 1)
+                {
+                    fprintf(outputFilePointer,"%d",tm.tm_mday);
+                }
+                else if(count == 2)
+                {
+                    fprintf(outputFilePointer,"%d",tm.tm_year + 1900);
+                }
+            }
+            else if(writingChar == 's')
+            {
+                fprintf(outputFilePointer,"%s",globalFileName);
+            }
+            continue;
+        }
+        else if(writingChar == 0)
+        {
+            continue;
+        }
+        putc(writingChar,outputFilePointer);
+    }
+    
+    
+    fclose(outputFilePointer);                      //close the file
+    fclose(inputFilePointer);
     printf("Main.c Completed\n");
     return 0;                                       //return 0 on no error
 }
 
-extern int open_file(char fileType)
+extern int open_write_file(char fileType)
 {
     char tempArray[310] = {0};                      //tempArray holds the new file path for the exact file being opened
 
@@ -59,8 +129,8 @@ extern int open_file(char fileType)
             tempArray[strlen(tempArray)] = 'n';            
             tempArray[strlen(tempArray)] = '.';
             tempArray[strlen(tempArray)] = 'c';
-            //Open file into fp and notify user
-            fp = fopen(tempArray,"w");
+            //Open file into outputFilePointer and notify user
+            outputFilePointer = fopen(tempArray,"w");
             printf("Main.c Opened\n");
             break;
         case 'h':                                   //case 'h' create and open the .h file
@@ -71,8 +141,8 @@ extern int open_file(char fileType)
             }
             tempArray[strlen(tempArray)] = '.';
             tempArray[strlen(tempArray)] = 'h';
-            //Open file into fp and notify user
-            fp = fopen(tempArray,"w");
+            //Open file into outputFilePointer and notify user
+            outputFilePointer = fopen(tempArray,"w");
             printf("%s.h Opened\n",globalFileName);
             break;
         case 'c':                                   //case 'c' create and open the .c file
@@ -83,18 +153,19 @@ extern int open_file(char fileType)
             }
             tempArray[strlen(tempArray)] = '.';
             tempArray[strlen(tempArray)] = 'c';
-            //Open file into fp and notify user
-            fp = fopen(tempArray,"w");
+            //Open file into outputFilePointer and notify user
+            outputFilePointer = fopen(tempArray,"w");
             printf("%s.c Opened\n",globalFileName);
             break;
         default:                                    //default print error
             printf("File open error");
             break;
     }
-    if(fp == NULL)                                  //if the file didn't open correctly
+    if(outputFilePointer == NULL)                   //if the file didn't open correctly
     {
         return ERR_FILE_IO;                         //return ERR_FILE_IO
     }
+    open_read_file(fileType);
     
     return 0;                                       //return 0 upon success
 }
@@ -135,21 +206,21 @@ extern int write_h_files()
     struct tm tm = *localtime(&now);                //Assign the time to the struct to access it
 
     //Print the format into the file
-    fprintf(fp,"/*\n\tProgrammer: Grant Ogden\n\tDate: %d-%d-%d\n\tProject:%s\n\tReason:\n*/\n",tm.tm_mon + 1,tm.tm_mday,tm.tm_year + 1900,globalFilePath);
-    fprintf(fp,"#ifndef %s\n",nameArry);
-    fprintf(fp,"#define %s\n\n\n",nameArry);
-    fprintf(fp,"/*\n * FUNCTION:\t\n * ARGUEMENTS:\t\n * RETURN:\t\t\n * NOTES:\t\t\n */\n\n\n");
-    fprintf(fp,"#endif");
+    fprintf(outputFilePointer,"/*\n\tProgrammer: Grant Ogden\n\tDate: %d-%d-%d\n\tProject:%s\n\tReason:\n*/\n",tm.tm_mon + 1,tm.tm_mday,tm.tm_year + 1900,globalFilePath);
+    fprintf(outputFilePointer,"#ifndef %s\n",nameArry);
+    fprintf(outputFilePointer,"#define %s\n\n\n",nameArry);
+    fprintf(outputFilePointer,"/*\n * FUNCTION:\t\n * ARGUEMENTS:\t\n * RETURN:\t\t\n * NOTES:\t\t\n */\n\n\n");
+    fprintf(outputFilePointer,"#endif");
 
-    fclose(fp);                                     //Close the header file
+    fclose(outputFilePointer);                      //Close the header file
     printf("%s.h Completed\n",globalFileName);      //Notify the user of completion
 
-    open_file('c');                                 //Open corresponding .c file
+    open_write_file('c');                                 //Open corresponding .c file
 
     //Print the format into the file
-    fprintf(fp,"/*\n\tProgrammer: Grant Ogden\n\tDate: %d-%d-%d\n\tProject:%s\n\tReason:\n*/\n",tm.tm_mon + 1,tm.tm_mday,tm.tm_year + 1900,globalFilePath);
+    fprintf(outputFilePointer,"/*\n\tProgrammer: Grant Ogden\n\tDate: %d-%d-%d\n\tProject:%s\n\tReason:\n*/\n",tm.tm_mon + 1,tm.tm_mday,tm.tm_year + 1900,globalFilePath);
 
-    fclose(fp);                                     //Close the header c file
+    fclose(outputFilePointer);                      //Close the header c file
     printf("%s.c Completed\n",globalFileName);      //Notify the user of completion
 
     return 0;                                       //Return 0 on success
@@ -202,9 +273,10 @@ extern int create_project(char *filePath,char * fileName)
     {
         mkdir(globalFilePath,0700);                 //Make the dir
     }
-    open_file('m');                                 //Open Main.c file
+    open_write_file('m');                                 //Open Main.c file
     write_main_c_file();                            //Write Main.c file
-    open_file('h');                                 //Open header files
+    open_write_file('h');                                 //Open header files
     write_h_files();                                //Write header files
     return 0;                                       //Return 0 on success
 }
+
