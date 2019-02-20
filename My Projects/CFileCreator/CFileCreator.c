@@ -44,13 +44,13 @@ extern int open_read_file(char fileType)
             inputFilePointer = fopen("./Templates/DefaultHeaderH.tmp","r");
             break;
         case 'c':                                   //case 'c' create and open the DefaultHeaderC file
-            inputFilePointer = fopen("./Templates/DefaultHeaderC","w");
+            inputFilePointer = fopen("./Templates/DefaultHeaderC.tmp","r");
             break;
         default:                                    //default print error
             printf("File open error");
             break;
     }
-    if(inputFilePointer == NULL)                   //if the file didn't open correctly
+    if(inputFilePointer == NULL)                    //if the file didn't open correctly
     {
         return ERR_FILE_IO;                         //return ERR_FILE_IO
     }
@@ -63,13 +63,13 @@ extern int write_main_c_file()
     time_t now = time(NULL);                        //set the time to now
     struct tm tm = *localtime(&now);                //assign that time to the struct
     char writingChar = 0;
+    int count = 0;
     
     //print the basic file layout into the file
     //fprintf(outputFilePointer,"/*\n\tProgrammer: Grant Ogden\n\tDate: %d-%d-%d\n\tProject:%s\n\tReason:\n*/\n",tm.tm_mon + 1,tm.tm_mday,tm.tm_year + 1900,globalFilePath);
     //fprintf(outputFilePointer,"#include <stdio.h>\n\nint main()\n{\n\t//Variable Decleration\n\n");
     //fprintf(outputFilePointer,"\t//Functions called here\n\n\treturn 0;\n}");
     while(writingChar != EOF){
-        static int count = 0;
         writingChar = getc(inputFilePointer);
         if(writingChar == '%')
         {
@@ -88,6 +88,7 @@ extern int write_main_c_file()
                 {
                     fprintf(outputFilePointer,"%d",tm.tm_year + 1900);
                 }
+                count++;
             }
             else if(writingChar == 's')
             {
@@ -95,7 +96,7 @@ extern int write_main_c_file()
             }
             continue;
         }
-        else if(writingChar == 0)
+        else if(writingChar <= 0)
         {
             continue;
         }
@@ -205,20 +206,95 @@ extern int write_h_files()
     time_t now = time(NULL);                        //Grab the time to now
     struct tm tm = *localtime(&now);                //Assign the time to the struct to access it
 
+    char writingChar = 0;
+    int countDate = 0;
+    int countString = 0;
     //Print the format into the file
-    fprintf(outputFilePointer,"/*\n\tProgrammer: Grant Ogden\n\tDate: %d-%d-%d\n\tProject:%s\n\tReason:\n*/\n",tm.tm_mon + 1,tm.tm_mday,tm.tm_year + 1900,globalFilePath);
-    fprintf(outputFilePointer,"#ifndef %s\n",nameArry);
-    fprintf(outputFilePointer,"#define %s\n\n\n",nameArry);
-    fprintf(outputFilePointer,"/*\n * FUNCTION:\t\n * ARGUEMENTS:\t\n * RETURN:\t\t\n * NOTES:\t\t\n */\n\n\n");
-    fprintf(outputFilePointer,"#endif");
-
-    fclose(outputFilePointer);                      //Close the header file
+    while(writingChar != EOF)
+    {
+        writingChar = getc(inputFilePointer);
+        if(writingChar == '%')
+        {
+            writingChar = getc(inputFilePointer);
+            if(writingChar == 'd')
+            {
+                if(countDate == 0)
+                {
+                    fprintf(outputFilePointer,"%d",tm.tm_mon + 1);
+                }
+                else if(countDate == 1)
+                {
+                    fprintf(outputFilePointer,"%d",tm.tm_mday);
+                }
+                else if(countDate == 2)
+                {
+                    fprintf(outputFilePointer,"%d",tm.tm_year + 1900);
+                }
+                countDate++;
+            }
+            else if(writingChar == 's')
+            {
+                if(countString == 0)
+                {
+                    fprintf(outputFilePointer,"%s",globalFileName);
+                }
+                else if(countString >= 1)
+                {
+                    fprintf(outputFilePointer,"%s",nameArry);
+                }
+                countString++;
+            }
+            continue;
+        }
+        else if(writingChar <= 0)
+        {
+            continue;
+        }
+        putc(writingChar,outputFilePointer);
+    }
+    countDate = 0;
+    countString = 0;
+    writingChar = 0;
+    //fclose(outputFilePointer);                      //Close the header file
     printf("%s.h Completed\n",globalFileName);      //Notify the user of completion
 
-    open_write_file('c');                                 //Open corresponding .c file
+    open_write_file('c');                           //Open corresponding .c file
 
     //Print the format into the file
-    fprintf(outputFilePointer,"/*\n\tProgrammer: Grant Ogden\n\tDate: %d-%d-%d\n\tProject:%s\n\tReason:\n*/\n",tm.tm_mon + 1,tm.tm_mday,tm.tm_year + 1900,globalFilePath);
+    while(writingChar != EOF)
+    {
+        writingChar = getc(inputFilePointer);
+        if(writingChar == '%')
+        {
+            writingChar = getc(inputFilePointer);
+            if(writingChar == 'd')
+            {
+                if(countDate == 0)
+                {
+                    fprintf(outputFilePointer,"%d",tm.tm_mon + 1);
+                }
+                else if(countDate == 1)
+                {
+                    fprintf(outputFilePointer,"%d",tm.tm_mday);
+                }
+                else if(countDate == 2)
+                {
+                    fprintf(outputFilePointer,"%d",tm.tm_year + 1900);
+                }
+                countDate++;
+            }
+            else if(writingChar == 's')
+            {
+                fprintf(outputFilePointer,"%s",globalFileName);
+            }
+            continue;
+        }
+        else if(writingChar <= 0)
+        {
+            continue;
+        }
+        putc(writingChar,outputFilePointer);
+    }
 
     fclose(outputFilePointer);                      //Close the header c file
     printf("%s.c Completed\n",globalFileName);      //Notify the user of completion
@@ -273,9 +349,10 @@ extern int create_project(char *filePath,char * fileName)
     {
         mkdir(globalFilePath,0700);                 //Make the dir
     }
-    open_write_file('m');                                 //Open Main.c file
+
+    open_write_file('m');                           //Open Main.c file
     write_main_c_file();                            //Write Main.c file
-    open_write_file('h');                                 //Open header files
+    open_write_file('h');                           //Open header files
     write_h_files();                                //Write header files
     return 0;                                       //Return 0 on success
 }

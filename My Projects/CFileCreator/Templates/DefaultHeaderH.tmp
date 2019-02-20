@@ -1,11 +1,11 @@
 /*
 	Programmer: Grant Ogden
-	Date: 2-19-2019
-	Project:/home/student/Class/My Projects/GraphicsPlay/
+	Date: %d-%d-%d
+	Project:%s
 	Reason:
 */
-#ifndef GRAPHICSPLAY
-#define GRAPHICSPLAY
+#ifndef %s
+#define %s
 
 
 /*
