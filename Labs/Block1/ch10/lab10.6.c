@@ -6,13 +6,16 @@
 */
 #include <stdio.h>
 #define STRINGIFY(x) #x
-#define MERGE(x,y) STRINGIFY(x##y)
-#define QUOTE(x,y) "\""MERGE(x,y)"\""
+#define MERGE(x,y) QUOTE(x##y)
+#define QUOTE(x) "\""STRINGIFY(x)"\""
+#define BUFF 64
 
 int main()
 {
-    puts(MERGE(Grant,Ogden));
-    puts(QUOTE(Grant,Ogden));
+    char string[BUFF] = {MERGE(Ro,bot)};
 
+
+    puts(MERGE(userInput1,userInput2));
+    puts(string);
     return 0;
 }
