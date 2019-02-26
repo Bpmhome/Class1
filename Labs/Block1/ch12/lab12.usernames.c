@@ -28,20 +28,23 @@ int main()
         //for every student
         for(int i = 0, count = 0; i < numOfStudents; i++, count = 0)
         {
-            printf("Roster #%d: ",i + 1);
-            scanf("%25s %25s %25s", first,middle,last);
-            username[0]= tolower(first[0]);
-            username[1]= tolower(middle[0]);
-            while(last[count] != '\0'){
-                username[count + 2] = tolower(last[count]);
+            printf("Roster #%d: ",i + 1);                       //Show what Roster number we are on
+            scanf("%25s %25s %25s", first,middle,last);         //Pull in the first,middle, and last names
+            username[0]= tolower(first[0]);                     //make the first username value to be equal to a lower case first char of first name
+            username[1]= tolower(middle[0]);                    //make the second username value to be equal to a lower case first char of middle name
+            while(last[count] != '\0')                          //while there are still letters
+            {                 
+                username[count + 2] = tolower(last[count]);     //Add every letter of the last name lower case to the username
                 count++;
             }
+
+            //Save this into the file
             fprintf(file_ptr,"%s %c. %s has a username of %s\n",first,middle[0],last,username);
         }
     }
     else
     {
-        printf("ERROR OPENING FILE");
+        printf("ERROR OPENING FILE");                           //File openeing ERROR
     }
     return 0;
 }

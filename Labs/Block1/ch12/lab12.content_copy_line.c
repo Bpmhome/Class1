@@ -10,7 +10,7 @@ int main()
 {
     FILE *read_ptr;                                     //File pointer for opening a read file
     FILE *write_ptr;                                    //File pointer for opening a write file
-    char input;                                         //char variable for holding the char to write into the file
+    char input[100] = {0};                              //char variable array for holding the char to write into the file
     
 
     //opening the files
@@ -23,11 +23,8 @@ int main()
         {
             while(!feof(read_ptr))                      //While we are not at the end of field on the read file
             {
-                input = fgetc(read_ptr);                //Pull the char from the read file
-                if(input >= 8)                          //If the char is a writeable character
-                {
-                    fputc(input,write_ptr);             //Write it
-                }
+                fgets(input,100,read_ptr);              //Pull the line from the read file
+                fputs(input,write_ptr);                 //Write it
             }
         }
         else
