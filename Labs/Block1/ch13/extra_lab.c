@@ -11,43 +11,44 @@ confirm that they match the first half of the values in the original array.
 
 int main( void )
 { 
-   unsigned   // number of elements in array
-   unsigned  // loop counter
-   int  // pointer to the array
+    unsigned int numberOfElements;  // number of elements in array
+    unsigned int count; // loop counter
+    int *int_ptr = NULL;  // pointer to the array
    
-   // prompt user and read integer size of array
-   printf( "%s", 
-      "This program dynamically allocates an array of integers.\n"
-          "Enter the number of elements in the array: " );
-   scanf(); // missing info in scanf
+    // prompt user and read integer size of array
+    printf( "This program dynamically allocates an array of integers.\nEnter the number of elements in the array: " );
+    scanf("%u", &numberOfElements); // missing info in scanf
    
-   // dynamically allocate memory
-	= calloc( );
+    // dynamically allocate memory
+    int_ptr = calloc(numberOfElements,sizeof(int));
    
-   // initialize elements of array with user-entered data
-   for ( ) { 
-      printf(  );
-      scanf(  );
-   } // end for
+    // initialize elements of array with user-entered data
+    for (int i = 0; i < numberOfElements; i++) 
+    { 
+        printf("Enter an integer: ");
+        scanf("%d", (int_ptr + i));
+    } // end for
 
-   puts( "\nThe elements of the array are:" );
-   
-   // display the original array
-   for (  ) {
-      printf(  );
-   } // end for
+    puts( "\nThe elements of the array are:" );
+    
+    // display the original array
+    for (int i = 0; i < numberOfElements; i++) {
+       printf("%d ",*(int_ptr + i));
+    } // end for
 
-   // reallocate to half the original size
-   realloc(  );
+    // reallocate to half the original size
+    int_ptr = realloc(int_ptr,(numberOfElements / 2));
 
-   puts( "\n\nThe elements of the array after reallocation are:" );
-   
-   // display array after cut in half
-   for (  ) {
-      printf(  );
-   } // end for
+    puts( "\n\nThe elements of the array after reallocation are:" );
+    
+    // display array after cut in half
+    for (int i = 0; i < (numberOfElements / 2); i++) {
+       printf("%d ", *(int_ptr + i));
+    } // end for
 
-   puts( "" );
+    puts( "" );
+
+    free(int_ptr);
 } // end main
 
 /* OUTPUT

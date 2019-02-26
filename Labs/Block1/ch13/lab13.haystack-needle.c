@@ -69,14 +69,14 @@ int haystack_needle(char *haystack, char *needle, char *buffer)
     Set that pointer to a new char pointer called *mark_position
     char *mark_position = strstr(haystack,needle);
 
-    // TODO: Using strcpy(), store the needle into the buffer... \
+    // TODO: Using strcpy(), store the end of the needle into the buffer... \
     you are not authorized to use the variable needle.
-    strcpy(buffer,needle);
+    strcpy(buffer,mark_position + needleLength);
 
 
     // TODO: Using memmove, overwrite the haystack (string)... effectivly removing the needle \
     // HINT: start at the mark_position... that is after all where we need to start replacing.
-    memmove((void*)mark_position,(void*)(mark_position + needleLength),needleLength);
+    memmove((void*)mark_position,(void*)(buffer),strlen(buffer) + 1);
 
     return 0;
 }
