@@ -9,12 +9,12 @@
 #include <string.h>
 
 
-typedef struct node
+typedef struct node                                                     //struct nodes for data storage
 {
-    char initials[4];
-    char favArtists[20];
-    char dreamCar[20];
-    struct node *next;
+    char initials[4];                                                   //4 positions for initials, 4 position is null
+    char favArtists[20];                                                //char array of 20 for artist
+    char dreamCar[20];                                                  //char array of 20 for car
+    struct node *next;                                                  //struct pointer for the next item
 }node_t;
 
 void print_full_list(node_t *head);
@@ -72,12 +72,13 @@ int main()
             char userChoice[4] = {0};
 
             printf("Please Select The Student You Want!\n");
-            while(current != NULL)
+            while(current->next != NULL)
             {
                 printf("%d. %s\n",i,current->initials);
                 current = current->next;
+                i++;
             }
-            printf("Please Enter The Students Initials: ");
+            printf("\nPlease Enter The Students Initials: ");
             scanf("%s",userChoice);
             print_specific_student(head,userChoice);
             break;
@@ -112,7 +113,7 @@ void print_specific_element(node_t *head, char output)
             while(current->next != NULL)
             {
                 printf("Student Initials:\t\t%s\n",current->initials);
-                printf("Student Favorite Artist:\t%s\n",current->favArtists);
+                printf("Student Favorite Artist:\t%s\n\n",current->favArtists);
                 current = current->next;
             }
             break;
