@@ -23,6 +23,9 @@ int main(int argc, char * argv[])
 			printf("encrypt.out <input file.txt> <encrypted filename> \tTo Encrypt");
 		}
 		else 
+		{
+			
+		}
 	}
 	//Functions called here
 
