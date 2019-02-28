@@ -56,6 +56,39 @@ void print_specific_element(node_t *head, char output);
  */
 void print_specific_student(node_t *head, char *student);
 
+/*
+ *  FUNCTION:
+ * 
+ *  ARGUEMENTS:
+ * 
+ *  RETURN:
+ * 
+ *  NOTES:
+ */
+void add_student(node_t *head, node_t *student);
+
+/*
+ *  FUNCTION:
+ * 
+ *  ARGUEMENTS:
+ * 
+ *  RETURN:
+ * 
+ *  NOTES:
+ */
+void remove_last_student(node_t *head);
+
+/*
+ *  FUNCTION:
+ * 
+ *  ARGUEMENTS:
+ * 
+ *  RETURN:
+ * 
+ *  NOTES:
+ */
+void remove_specific_student(node_t *head);
+
 
 int main()
 {
@@ -73,55 +106,98 @@ int main()
 
     //Print the Menu for the user and scan in their choicee
     printf("Welcome to the class link list!\n");
-    printf("What would you like to do?\n1. Print All Students\n2. Print Specific Fact About Student\n3. Print Specific Student\n\n");
-    printf("Enter the Number of Your Choice: ");
+    
+    printf("Would you like to...\n1. Edit List\n2. View List\nEnter the Number of Your Choice: ");
     scanf("%d",&userChoice);
 
-    switch (userChoice)                                         
+    if(userChoice == 1)
     {
-        case 1:                                         //If they selected 1. then print all
-            print_full_list(head);
-            break;
+        printf("What would you like to do?\n1. Add Student\n2. Remove Last Student\n3. Remove Specific Student\n");
+        printf("Enter the Number of Your Choice: ");
+        scanf("%d",&userChoice);
 
-        case 2:                                         //If the selected 2. present menu to see what data element
-            printf("What Fact Do You Want To See?\n1. Favorite Artist\n2. Dream Car\n\n Enter the Number of Your Choice: ");
-            scanf("%d",&userChoice);
-            if(userChoice == 1)                         //Based on user choice print the selected data element
-            {
-                print_specific_element(head,'a');
-            }
-            else if(userChoice == 2)
-            {
-                print_specific_element(head,'c');
-            }
-            else
-            {
-                printf("ERROR");
-            }
-            break;
+        switch (userChoice)
+        {
+            case 1:
+                ;
+                node_t *newStudent = (node_t*)malloc(sizeof(node_t));
+                newStudent->next = NULL;
+                printf("Enter Student Initials: ");
+                scanf("%3s",newStudent->initials);
+                printf("Enter Student's Favorite Artist: ");
+                scanf("%19s",newStudent->favArtists);
+                printf("Enter Student's Dream Car: ");
+                scanf("%19s",newStudent->dreamCar);
+                add_student(head,newStudent);
+                print_full_list(head);
+                break;
 
-        case 3:                                         //If they selected 3. Then print a menu of user initials for them to slect
+            case 2:
+                remove_last_student(head);
+                print_full_list(head);
+                break;
 
-            current = head;                             //set current equal to the head
-            int i = 1;                                  //initialize our counter variable
-            char userChoice[4] = {0};                   //char array to hold user's choice of initials
+            case 3:
+                /* code */
+                break;                
 
-            //print the menu and scan in user input
-            printf("Please Select The Student You Want!\n");
-            while(current != NULL)
-            {
-                printf("%d. %s\n",i,current->initials);
-                current = current->next;
-                i++;
-            }
-            printf("\nPlease Enter The Students Initials: ");
-            scanf("%3s",userChoice);
-            print_specific_student(head,userChoice);    //print the specific student
-            break;
-
-        default:
-            break;
+            default:
+                break;
+        }
     }
+    else if(userChoice == 2)
+    {
+        printf("What would you like to do?\n1. Print All Students\n2. Print Specific Fact About Student\n3. Print Specific Student\n\n");
+        printf("Enter the Number of Your Choice: ");
+        scanf("%d",&userChoice);
+
+        switch (userChoice)                                         
+        {
+            case 1:                                         //If they selected 1. then print all
+                print_full_list(head);
+                break;
+
+            case 2:                                         //If the selected 2. present menu to see what data element
+                printf("What Fact Do You Want To See?\n1. Favorite Artist\n2. Dream Car\n\nEnter the Number of Your Choice: ");
+                scanf("%d",&userChoice);
+                if(userChoice == 1)                         //Based on user choice print the selected data element
+                {
+                    print_specific_element(head,'a');
+                }
+                else if(userChoice == 2)
+                {
+                    print_specific_element(head,'c');
+                }
+                else
+                {
+                    printf("ERROR");
+                }
+                break;
+
+            case 3:                                         //If they selected 3. Then print a menu of user initials for them to slect
+
+                current = head;                             //set current equal to the head
+                int i = 1;                                  //initialize our counter variable
+                char userChoice[4] = {0};                   //char array to hold user's choice of initials
+
+                //print the menu and scan in user input
+                printf("Please Select The Student You Want!\n");
+                while(current != NULL)
+                {
+                    printf("%d. %s\n",i,current->initials);
+                    current = current->next;
+                    i++;
+                }
+                printf("\nPlease Enter The Students Initials: ");
+                scanf("%3s",userChoice);
+                print_specific_student(head,userChoice);    //print the specific student
+                break;
+
+            default:
+                break;
+        }
+    }
+    
 
     return 0;
 }
@@ -220,4 +296,59 @@ void print_specific_student(node_t *head, char *student)
         }
         current = current->next;
     }
+}
+
+/*
+ *  FUNCTION:   
+ * 
+ *  ARGUEMENTS: 
+ * 
+ *  RETURN:     
+ * 
+ *  NOTES:      
+ */
+void add_student(node_t *head, node_t *student)
+{
+    node_t *current = head;
+    
+    while(current->next != NULL){
+        current = current->next;
+    }
+
+    current->next = student;
+}
+
+/*
+ *  FUNCTION:
+ * 
+ *  ARGUEMENTS:
+ * 
+ *  RETURN:
+ * 
+ *  NOTES:
+ */
+void remove_last_student(node_t *head)
+{
+    node_t *current = head;
+
+    while(current->next->next != NULL)
+    {
+        current = current->next;
+    }
+
+    current->next = NULL;
+}
+
+/*
+ *  FUNCTION:
+ * 
+ *  ARGUEMENTS:
+ * 
+ *  RETURN:
+ * 
+ *  NOTES:
+ */
+void remove_specific_student(node_t *head)
+{
+
 }
