@@ -11,6 +11,7 @@
 
 typedef struct node                                     //struct nodes for data storage
 {
+    int ID;
     char initials[4];                                   //4 positions for initials, 4 position is null
     char favArtists[20];                                //char array of 20 for artist
     char dreamCar[20];                                  //char array of 20 for car
@@ -54,7 +55,7 @@ void print_specific_element(node_t *head, char output);
  *                  because there isn't a unique ID in this linked list
  *                  (Consider Implementation)
  */
-void print_specific_student(node_t *head, char *student);
+void print_specific_student(node_t *head,int ID);
 
 /*
  *  FUNCTION:
@@ -87,14 +88,14 @@ void remove_last_student(node_t *head);
  * 
  *  NOTES:
  */
-void remove_specific_student(node_t *head);
+void remove_specific_student(node_t *head,int ID);
 
 
 int main()
 {
-    node_t Butler = { "JAB","Picasso","Any"};           //New student Butler
-    node_t Young = { "JHY","Eminem","Cruze"};           //New student Young
-    node_t Beasley = { "JAB","Erratic","Tesla"};        //New student Beasley
+    node_t Butler = { 1,"JAB","Picasso","Any",};           //New student Butler
+    node_t Young = { 2,"JHY","Eminem","Cruze"};           //New student Young
+    node_t Beasley = { 3,"JAB","Erratic","Tesla"};        //New student Beasley
     node_t *current;                                    //*current for use in writing student names later
 
     int userChoice = 0;                                 //An integer holding the user's choices
@@ -137,9 +138,24 @@ int main()
                 print_full_list(head);
                 break;
 
-            case 3:
-                /* code */
-                break;                
+            case 3:                                         //If they selected 3. Then print a menu of user initials for them to slect
+
+                current = head;                             //set current equal to the head
+                int i = 1;                                  //initialize our counter variable
+
+                //print the menu and scan in user input
+                printf("Please Select The Student You Want!\n");
+                while(current != NULL)
+                {
+                    printf("%d. %s\n",i,current->initials);
+                    current = current->next;
+                    i++;
+                }
+                printf("\nPlease Enter The Number of the Student: ");
+                scanf("%d",&userChoice);
+                remove_specific_student(head,userChoice);    //print the specific student
+                print_full_list(head);
+                break;
 
             default:
                 break;
@@ -178,7 +194,6 @@ int main()
 
                 current = head;                             //set current equal to the head
                 int i = 1;                                  //initialize our counter variable
-                char userChoice[4] = {0};                   //char array to hold user's choice of initials
 
                 //print the menu and scan in user input
                 printf("Please Select The Student You Want!\n");
@@ -188,8 +203,8 @@ int main()
                     current = current->next;
                     i++;
                 }
-                printf("\nPlease Enter The Students Initials: ");
-                scanf("%3s",userChoice);
+                printf("\nPlease Enter The Number of the Student: ");
+                scanf("%d",&userChoice);
                 print_specific_student(head,userChoice);    //print the specific student
                 break;
 
@@ -281,13 +296,13 @@ void print_specific_element(node_t *head, char output)
  *                  because there isn't a unique ID in this linked list
  *                  (Consider Implementation)
  */
-void print_specific_student(node_t *head, char *student)
+void print_specific_student(node_t *head,int ID)
 {
     node_t *current = head;                             //Set our current pointer to head
 
     while(current != NULL)                              //While current has value
     {
-        if(strcmp(current->initials,student) == 0)      //If the Initials match the one passed in
+        if(current->ID == ID)      //If the Initials match the one passed in
         {
             //Print that student's information
             printf("Student Initials:\t\t%s\n",current->initials);
@@ -310,12 +325,15 @@ void print_specific_student(node_t *head, char *student)
 void add_student(node_t *head, node_t *student)
 {
     node_t *current = head;
+    int i = 1;
     
     while(current->next != NULL){
         current = current->next;
+        i++;
     }
 
     current->next = student;
+    current->ID = i;
 }
 
 /*
@@ -336,6 +354,7 @@ void remove_last_student(node_t *head)
         current = current->next;
     }
 
+    free(current->next->next);
     current->next = NULL;
 }
 
@@ -348,7 +367,14 @@ void remove_last_student(node_t *head)
  * 
  *  NOTES:
  */
-void remove_specific_student(node_t *head)
+void remove_specific_student(node_t *head,int ID)
 {
+    node_t *current = head;
 
+    while(current->next->ID != ID){
+        current = current->next;
+    }
+
+    free(current->next);
+    current->next = current->next->next;
 }
