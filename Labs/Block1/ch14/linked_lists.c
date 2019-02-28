@@ -18,6 +18,7 @@ void print_full_list(node_t *head)
     while(current != NULL)                              //while current has value
     {
         //print the values of current
+        printf("Student ID:\t\t%d\n",current->ID);
         printf("Student Initials:\t\t%s\n",current->initials);
         printf("Student Favorite Artist:\t%s\n",current->favArtists);
         printf("Student Dream Car:\t\t%s\n\n",current->dreamCar);
@@ -99,13 +100,14 @@ void print_specific_student(node_t *head,int ID)
 }
 
 /*
- *  FUNCTION:   
+ *  FUNCTION:   void add_student(node_t *head, node_t *student)
  * 
- *  ARGUEMENTS: 
+ *  ARGUEMENTS: node_t *head    -The head of the linked list to add the student to
+ *              node_t *student -Pointer to the student's data to add
  * 
- *  RETURN:     
+ *  RETURN:     VOID
  * 
- *  NOTES:      
+ *  NOTES:      adds the new student to the end of the list
  */
 void add_student(node_t *head, node_t *student)
 {
@@ -118,17 +120,17 @@ void add_student(node_t *head, node_t *student)
     }
 
     current->next = student;
-    current->ID = i;
+    current->next->ID = i + 1;
 }
 
 /*
- *  FUNCTION:
+ *  FUNCTION:   void remove_last_student(node_t *head)
  * 
- *  ARGUEMENTS:
+ *  ARGUEMENTS: node_t *head    -The head of the linked list to remove the student from
  * 
- *  RETURN:
+ *  RETURN:     VOID
  * 
- *  NOTES:
+ *  NOTES:      removes the last data position from the linked list
  */
 void remove_last_student(node_t *head)
 {
@@ -144,13 +146,14 @@ void remove_last_student(node_t *head)
 }
 
 /*
- *  FUNCTION:
+ *  FUNCTION:   void remove_specific_student(node_t *head,int ID)
  * 
- *  ARGUEMENTS:
+ *  ARGUEMENTS: node_t *head    -The head of the linked list to remove the student from
+ *              int ID          -The unique ID assigned to the student to be removed
  * 
- *  RETURN:
+ *  RETURN:     VOID
  * 
- *  NOTES:
+ *  NOTES:      removes a specific student given by the ID
  */
 void remove_specific_student(node_t *head,int ID)
 {
