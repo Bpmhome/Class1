@@ -83,3 +83,36 @@ void remove_specific_index(list_t *list,int ID)
     current->next = current->next->next;
 	free(delete);
 }
+
+/*
+ *  FUNCTION:   void remove_specific_student(node_t *head,int ID)
+ * 
+ *  ARGUEMENTS: list_t *list    -The list the information is held within
+ *              int ID          -The unique ID assigned to the student to be removed
+ * 
+ *  RETURN:     Returns a void pointer to the data that was stored within it.
+ * 
+ *  NOTES:      Used to retrieve data from the list
+ */
+extern void* retrieve_specific_data(list_t *list,int ID)
+{
+	node_t *current;
+	if(ID <= (list->numberOfItems/2))
+	{
+		current = list->head;
+		while(current->ID != ID)
+		{
+			current = current->next;
+		}	
+	}
+	else
+	{
+		current = list->tail;
+		while(current->ID != ID)
+		{
+			current = current->previous;
+		}	
+	}
+		
+	return current->data;
+}

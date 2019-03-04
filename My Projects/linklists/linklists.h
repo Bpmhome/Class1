@@ -12,9 +12,9 @@
 typedef struct node                                     //struct nodes for data storage
 {
 	int ID; 
-    node_t *previous;
+    struct node *previous;
 	void *data;
-    node_t *next;                                  //struct pointer for the next item
+    struct node *next;                                  //struct pointer for the next item
 }node_t;
 
 typedef struct list
@@ -70,6 +70,19 @@ extern void remove_last_index(list_t *list);
  *  NOTES:      removes a specific student given by the ID
  */
 extern void remove_specific_index(list_t *list,int ID);
+
+/*
+ *  FUNCTION:   void remove_specific_student(node_t *head,int ID)
+ * 
+ *  ARGUEMENTS: node_t *head    -The head of the linked list to remove the student from
+ *              int ID          -The unique ID assigned to the student to be removed
+ * 
+ *  RETURN:     VOID
+ * 
+ *  NOTES:      removes a specific student given by the ID
+ */
+extern void* retrieve_specific_data(list_t *list,int ID);
+
 
 
 #endif
