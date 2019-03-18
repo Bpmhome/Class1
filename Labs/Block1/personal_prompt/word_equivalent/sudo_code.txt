@@ -1,0 +1,27 @@
+Prompt:
+(Writing the Word Equivalent of a Check Amount)
+One common security method requires that the check aount be both written in
+numbers and "spelled out" in words. Even if someone is able to alter the numberical amount of the 
+check, it's extremely difficult to change the amount in words. Write a program that inputs a numeric
+check amount and writes the word equivalent of the amount. For example, the amount 52.43
+should be written as
+FIFTY TWO and 43/100
+
+Sudo:
+Prompt user for their float number
+    break down their number
+        break it into the its respective places
+            thousands
+            hundreds
+            tens
+            ones
+            tenths
+            hundreths
+            thousandths
+    Encrypt it
+        multiply ascii by set value
+    Ask for Password
+        if correct
+            decrypt it
+        else
+            exit

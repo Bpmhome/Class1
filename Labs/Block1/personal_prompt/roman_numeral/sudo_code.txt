@@ -1,0 +1,34 @@
+Prompt:
+(Roman-Numeral Equivelent of Decimal Values) Write a program that prints a table of all 
+the Roman numeral equivalents of the decimal numbers in the range 1 to 100.
+Roman numbers are represented by the following characters:
+I, V, X, L, C, D, M
+Before writing the code, you should understand how roman number work and their rules:
+Repeating a roman numberal up to three times represents the addition of the number wereas, V, L, and D cannot be repeated.
+III is equivalent to (1+1+1 = 3)
+XXX is equivalent to (10+10+10 = 30)
+
+Sudo:
+Prompt User to convert from decimal or Roman
+If decimal
+    Take in user decimal number
+    Break number down from the largest roman numbers down
+        Divide by the largest number down
+            the 0-8
+            the 9-10
+            the 10-80
+            the 90-100
+            the 100-800
+            the 900 - 1000
+    Reverse the string and print it to the user
+If Roman
+    Take in user Roman number
+    Start doing maths with user symbols
+        break the Roman into chunks
+            The 0-8
+            the 9-10
+            the 10-80
+            the 90-100
+            the 100-800
+            the 900 - 1000
+    Print number from the math
