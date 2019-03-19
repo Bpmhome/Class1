@@ -1,0 +1,4 @@
+I made a program that takes a float input from the user and changes it into a string describing the number. It does
+this by taking in the number as a char array to be able to look at each postion of the number. Using its position and
+distance from the decimal point we can decide what place it is. I use two functions to return the number value as a string (5 = five).
+Once after the decimal it displays the numbers as a fraction.

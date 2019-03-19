@@ -8,28 +8,33 @@
 
 char * convert_to_letters(char* num);
 char * print_number(char num);
-char * print_number_tens_place(char num);
+char * print_number_tens_place(char number1,char number2);
 
 int main(){
-    char * userNum = (char *)malloc(7);
+    char userNum[10] = {0};
+    char * userNum_ptr =userNum;  
 
     printf("Please enter your number to be turned to words!\nYour number can be from 0 to 9999.999\n\tEnter Here: ");
-    scanf("%s",userNum);
-
-    convert_to_letters(userNum);
+    scanf("%12s",userNum);
+    //printf("Input recieved");
+    printf("%s\n",userNum);
+    convert_to_letters(userNum_ptr);
 }
 
 char * convert_to_letters(char* num)
 {
+    //printf("Did we even get here?");
     int length = strlen(num);
+    int placesAfterDecimal = 0;
     char * decimal_ptr;
     bool afterDecimal = false;
-
+    //printf("Did we get here?");
     for(int i = 0; i < length; i++)
     {
         if(*(num + i) == '.')
         {
             decimal_ptr = (num + i);
+            //printf("Decimal found");
             break;
         }
     }
@@ -40,34 +45,57 @@ char * convert_to_letters(char* num)
         {
             afterDecimal = true;
             //i++;
-            printf(".");
+            printf(" and ");
         }
         else
         {
             if(afterDecimal == false)
             {
-                if(((num+i) - decimal_ptr) == 3)
+
+                if(((num + i) - decimal_ptr) == -4 && *(num + i) != '0')
                 {
                     printf("%s thousand ",print_number(*(num + i)));
                 }
-                else if(((num+i) - decimal_ptr) == 2)
+                else if(((num + i) - decimal_ptr) == -3 && *(num + i) != '0')
                 {
-                    if()
+                    printf("%s hundred ", print_number(*(num + i)));
                 }
-                else
+                else if(((num + i) -  decimal_ptr) == -2 && *(num + i) != '0')
                 {
-                    
+                    printf("%s",print_number_tens_place(*(num + i),*(num + i + 1)));
                 }
-                
+                else if(((num + i) - decimal_ptr) == -1 && *(num + i) != '0')
+                {
+                    if(*(num + i - 1) != 1)
+                    {
+                        printf("-%s",print_number(*(num + i)));
+                    }
+                }
             }
             else
             {
-                
-            }
-            
+                printf("%c",*(num + i));
+                placesAfterDecimal++;
+            }   
         }
-
     }
+    switch(placesAfterDecimal)
+    {
+        case 0:
+            printf("0/1\n");
+            break;
+        case 1:
+            printf("/10.\n");
+            break;
+        case 2:
+            printf("/100.\n");
+            break;
+        case 3:
+            printf("/1000.\n");
+            break;
+    }
+
+    return NULL;
 }
 
 char * print_number(char number)
@@ -110,11 +138,47 @@ char * print_number(char number)
     return returnValue;
 }
 
-char * print_number_tens_place(char number)
+char * print_number_tens_place(char number1,char number2)
 {
     char * returnValue = (char *)malloc(5);
-    switch (number)
+    switch (number1)
     {
+        case '1':
+            switch(number2)
+            {
+                case '0':
+                    returnValue = "ten";
+                    break;
+                case '1':
+                    returnValue = "eleven";
+                    break;
+                case '2':
+                    returnValue = "twelve";
+                    break;
+                case '3':
+                    returnValue = "thirteen";
+                    break;
+                case '4':
+                    returnValue = "fourteen";
+                    break;
+                case '5':
+                    returnValue = "fifteen";
+                    break;
+                case '6':
+                    returnValue = "sixteen";
+                    break;
+                case '7':
+                    returnValue = "seventeen";
+                    break;
+                case '8':
+                    returnValue = "eighteen";
+                    break;
+                case '9':
+                    returnValue = "nineteen";
+                    break;
+            }
+
+            break;
         case '2':
             returnValue = "twenty";
             break;
